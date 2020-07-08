@@ -11,6 +11,9 @@ docker-run:
 docker-logs:
 	@docker-compose logs -f
 
+docker-test:
+	@docker-compose exec chessdb_api python setup.py test
+
 run: upgrade
 	@uvicorn chessdb_api.asgi:app --reload
 build:
