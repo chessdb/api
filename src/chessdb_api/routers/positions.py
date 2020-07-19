@@ -25,36 +25,35 @@ async def add_position(position: position_schemas.Create,
     return await service.create(position=position)
 
 
-@router.put("/{identifier}", response_model=position_schemas.DB)
-async def update_position(identifier: pydantic.UUID4,
+@router.put("/{fen}", response_model=position_schemas.DB)
+async def update_position(fen: pydantic.UUID4,
                           position: position_schemas.Update,
                           service=fastapi.Depends(
                               service_factory.get_position_services)):
-    position = await service.update(identifier=identifier,
-                                    new_position=position)
+    position = await service.update(fen=fen, new_position=position)
     if position:
         return position
     raise fastapi.HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"A position with id: '{identifier} was not found.",
+        detail=f"A position with id: '{fen} was not found.",
     )
 
 
-@router.get("/{identifier}", response_model=position_schemas.DB)
-async def get_position(identifier: pydantic.UUID4,
+@router.get("/{fen}", response_model=position_schemas.DB)
+async def get_position(fen: pydantic.UUID4,
                        service=fastapi.Depends(
                            service_factory.get_position_services)):
-    position = await service.get_by_id(identifier=identifier)
+    position = await service.get_by_id(fen=fen)
     if position:
         return position
     raise fastapi.HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"A position with id: '{identifier} was not found.",
+        detail=f"A position with id: '{fen} was not found.",
     )
 
 
-@router.delete("/{identifier}", response_model=position_schemas.DB)
-async def delete_position(identifier: pydantic.UUID4,
+@router.delete("/{fen}", response_model=position_schemas.DB)
+async def delete_position(fen: pydantic.UUID4,
                           service=fastapi.Depends(
                               service_factory.get_position_services)):
-    return await service.delete(identifier=identifier)
+    return await service.delete(fen=fen)

@@ -18,9 +18,8 @@ class Service:
         new_position = await self._queries.create(position=position)
         return position_schemas.DB.from_orm(new_position)
 
-    async def get_by_id(self,
-                        identifier: pydantic.UUID4) -> position_schemas.DB:
-        position = await self._queries.get_by_id(identifier=identifier)
+    async def get_by_id(self, fen: pydantic.UUID4) -> position_schemas.DB:
+        position = await self._queries.get_by_id(fen=fen)
         if position:
             return position_schemas.DB.from_orm(position)
         return None
@@ -41,13 +40,13 @@ class Service:
                                           pagination=pagination)
 
     async def update(
-            self, identifier: pydantic.UUID4,
+            self, fen: pydantic.UUID4,
             new_position: position_schemas.Update) -> position_schemas.DB:
-        old_position = await self._queries.get_by_id(identifier=identifier)
+        old_position = await self._queries.get_by_id(fen=fen)
         updated_position = await self._queries.update(old_position=old_position,
                                                       new_position=new_position)
         return position_schemas.DB.from_orm(updated_position)
 
-    async def delete(self, identifier: pydantic.UUID4) -> position_schemas.DB:
-        deleted_position = await self._queries.delete(identifier=identifier)
+    async def delete(self, fen: pydantic.UUID4) -> position_schemas.DB:
+        deleted_position = await self._queries.delete(fen=fen)
         return position_schemas.DB.from_orm(deleted_position)

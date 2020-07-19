@@ -22,14 +22,14 @@ class Queries():
             Model.fen.asc()).offset(page_size * (page - 1)
                                    ).limit(page_size).gino.all()
 
-        count = await DB.func.count(Model.identifier).gino.scalar()
+        count = await DB.func.count(Model.fen).gino.scalar()
         return positions, count
 
-    async def get_by_id(self, identifier: pydantic.UUID4) -> Model:
-        return await Model.get(identifier)
+    async def get_by_id(self, fen: pydantic.UUID4) -> Model:
+        return await Model.get(fen)
 
-    async def delete(self, identifier: pydantic.UUID4) -> Model:
-        position = await self.get_by_id(identifier)
+    async def delete(self, fen: pydantic.UUID4) -> Model:
+        position = await self.get_by_id(fen)
         await position.delete()
         return position
 
