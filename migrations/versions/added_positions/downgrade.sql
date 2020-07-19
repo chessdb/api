@@ -1,0 +1,15 @@
+DROP INDEX position_bitboard_idx;
+DROP INDEX position_bitboard_white_idx;
+DROP INDEX position_bitboard_black_idx;
+DROP INDEX position_bitboard_white_pawn_idx;
+DROP INDEX position_bitboard_black_pawn_idx;
+DROP INDEX position_bitboard_white_rook_idx;
+DROP INDEX position_bitboard_black_rook_idx;
+DROP INDEX position_bitboard_white_bishop_idx;
+DROP INDEX position_bitboard_black_bishop_idx;
+DROP INDEX position_bitboard_white_queen_idx;
+DROP INDEX position_bitboard_black_queen_idx;
+DROP INDEX position_bitboard_white_king_idx;
+DROP INDEX position_bitboard_black_king_idx;
+
+DROP TABLE positions;
