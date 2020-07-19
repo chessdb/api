@@ -6,8 +6,12 @@ Revises:
 Create Date: 2020-07-19 18:36:43.829236
 
 """
-import sys
 import pathlib
+import sys
+
+from alembic import op
+from migrations import helper
+from sqlalchemy import orm
 
 # Make migrations importable by adding the project root folder to the path.
 # 'migrations/versions/96115ea05082.py' == __file__
@@ -16,10 +20,6 @@ import pathlib
 # '.' == parents[2]
 DIR_NAME = str(pathlib.Path(__file__).parents[2])
 sys.path.append(DIR_NAME)
-
-from alembic import op
-from sqlalchemy import orm
-from migrations import helper
 
 # revision identifiers, used by Alembic.
 revision = '96115ea05082'

@@ -5,9 +5,9 @@ import pathlib
 import subprocess
 
 import pytest
-from fastapi import testclient
 
 import chessdb_api
+from fastapi import testclient
 
 
 @pytest.fixture

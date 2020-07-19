@@ -8,14 +8,13 @@ import sys
 import time
 
 from alembic import context
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
 from chessdb_api import create_app
 from chessdb_api.core.config_loader import DB_DSN
 from chessdb_api.core.config_loader import DB_RETRY_INTERVAL
 from chessdb_api.core.config_loader import DB_RETRY_LIMIT
 from chessdb_api.core.db import DB
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
 
 # Make migrations importable by adding the project root folder to the path.
 # 'migrations/env.py == __file__

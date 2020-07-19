@@ -1,23 +1,37 @@
-from typing import List, Optional
+"""Example Google style docstrings.
 
-import pydantic
+"""
+from typing import List
 
 from chessdb_api.domain import base_schemas
+import pydantic
 
 
 class _Base(pydantic.BaseModel):
+    """_Base.
+    """
+
     fen: pydantic.constr(max_length=90)
 
 
 class Create(_Base):
+    """Create.
+    """
+
     pass
 
 
 class Update(_Base):
+    """Update.
+    """
+
     pass
 
 
 class DB(_Base):
+    """DB.
+    """
+
     bitboard_all: int
     bitboard_white: int
     bitboard_black: int
@@ -35,9 +49,15 @@ class DB(_Base):
     bitboard_black_king: int
 
     class Config:
+        """Config.
+        """
+
         orm_mode = True
 
 
 class Paginated(pydantic.BaseModel):
+    """Paginated.
+    """
+
     results: List[DB]
     pagination: base_schemas.Pagination

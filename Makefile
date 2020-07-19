@@ -61,6 +61,7 @@ run-local: .env ${VERSION}
 	@uvicorn chessdb_api.asgi:app --reload --port 10001
 
 lint-local: hooks
+	@pip install yapf pylint 'isort<5.0'
 	@isort --recursive src migrations tests
 	@yapf --style google -ipr src migrations tests
 	@pylint --rcfile=setup.cfg src migrations tests

@@ -5,11 +5,10 @@ application gets created, then gets extensions initialized and routes
 registered.
 """
 
-from fastapi import FastAPI
-
 from chessdb_api.core import version
 from chessdb_api.core.db import DB
 from chessdb_api.routers import positions
+from fastapi import FastAPI
 
 
 def create_app() -> FastAPI:

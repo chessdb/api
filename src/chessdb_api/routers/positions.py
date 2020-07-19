@@ -1,9 +1,8 @@
+from chessdb_api.core import service_factory
+from chessdb_api.domain.positions import position_schemas
 import fastapi
 import pydantic
 from starlette import status
-
-from chessdb_api.core import service_factory
-from chessdb_api.domain.positions import position_schemas
 
 router = fastapi.APIRouter()
 

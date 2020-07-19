@@ -1,9 +1,11 @@
-from typing import Any, Dict, Tuple
+from typing import Any
+from typing import Dict
+from typing import Tuple
 
-import pydantic
 import pytest
 from requests import exceptions
 
+import pydantic
 from tests import utils
 
 ROUTE = "/positions/"
