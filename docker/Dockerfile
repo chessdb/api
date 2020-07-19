@@ -3,12 +3,7 @@ FROM python:slim-buster AS compile-image
 
 ## install dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bbuild-essential
-
-## virtualenv
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+    apt-get install -y --no-install-recommends build-essential
 
 ## add and install requirements
 RUN pip install --upgrade pip

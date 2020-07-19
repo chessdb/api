@@ -1,18 +1,29 @@
 # -*- coding: utf-8 -*-
-import logging
-import os
+"""This module is used for configuring the Alembic environment prior to running
+Alembic commands (such as; downgrade, upgrade .. etc)
+
+"""
+from logging.config import fileConfig
+import pathlib
 import sys
 import time
-from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
 
 from chessdb_api import create_app
-from chessdb_api.config import DB_DSN, DB_RETRY_INTERVAL, DB_RETRY_LIMIT
-from chessdb_api.models import DB
+from chessdb_api.core.config_loader import DB_DSN
+from chessdb_api.core.config_loader import DB_RETRY_INTERVAL
+from chessdb_api.core.config_loader import DB_RETRY_LIMIT
+from chessdb_api.core.db import DB
 
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+# Make migrations importable by adding the project root folder to the path.
+# 'migrations/env.py == __file__
+# 'migrations/' == parents[0] (the parent folder)
+# '.' == parents[1] (the parents parent).
+PROJECT_ROOT_DIR = str(pathlib.Path(__file__).parents[1])
+sys.path.append(PROJECT_ROOT_DIR)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -64,7 +75,6 @@ def run_migrations_online():
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
-    print(DB_DSN)
     retries = 0
     while True:
         try:
@@ -72,10 +82,8 @@ def run_migrations_online():
             connection = connectable.connect()
         except Exception:
             if retries < DB_RETRY_LIMIT:
-                logging.info("Waiting for the database to start...")
                 time.sleep(DB_RETRY_INTERVAL)
             else:
-                logging.error("Max retries reached.")
                 raise
         else:
             break
