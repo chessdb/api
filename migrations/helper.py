@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Helps execute SQL migrations inside .sql files.
 
 """

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """This module is for commonly shared pydantic basemodels.
 
 """

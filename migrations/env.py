@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """This module is used for configuring the Alembic environment prior to running
 Alembic commands (such as; downgrade, upgrade .. etc)
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Asyncronus server gateway interface.
 
 This is for running in production.

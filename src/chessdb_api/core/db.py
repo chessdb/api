@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """This module sets up Gino to talk with our PostgreSQL database
 
 """

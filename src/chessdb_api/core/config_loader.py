@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Configuration loader.
 
 Loads from environment variables, and .env file. Environment variables

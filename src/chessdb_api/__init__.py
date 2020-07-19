@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Collection of functions initializing FastAPI application.
 
 This is the main entry point, of creating the FastAPI application. The
@@ -10,6 +9,7 @@ from fastapi import FastAPI
 
 from chessdb_api.core import version
 from chessdb_api.core.db import DB
+from chessdb_api.routers import positions
 
 
 def create_app() -> FastAPI:
@@ -32,6 +32,9 @@ def _register_routes(app: FastAPI) -> FastAPI:
     Returns:
         FastAPI: FastAPI application with routes registered.
     """
+    app.include_router(positions.router,
+                       prefix="/positions",
+                       tags=["Positions"])
     return app
 
 

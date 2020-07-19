@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Builds boilerplate as a package
 
 """
