@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
-"""Example Google style docstrings.
+"""Asyncronus server gateway interface.
 
+This is for running in production.
 """
 from chessdb_api import create_app
 

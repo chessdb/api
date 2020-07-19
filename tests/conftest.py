@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Example Google style docstrings.
 
 """
@@ -6,9 +5,9 @@ import pathlib
 import subprocess
 
 import pytest
-from starlette import testclient
 
 import chessdb_api
+from fastapi import testclient
 
 
 @pytest.fixture
@@ -27,6 +26,5 @@ def client(app):
     """
     cwd = pathlib.Path(__file__).parent.parent
     subprocess.check_call(["alembic", "upgrade", "head"], cwd=cwd)
-    with testclient.TestClient(app) as client:
-        yield client
-    # TODO this should only be called if tests fail?
+    with testclient.TestClient(app, "http://localhost:12001") as test_client:
+        yield test_client

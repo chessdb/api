@@ -1,0 +1,23 @@
+name: chessdb_api Deploy CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to registry
+        uses: azure/docker-login@v1
+        with:
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASS }}
+      - name: Publish to registry
+        run: |
+          docker build --cache-from $ONBUILD -t $ONBUILD -f docker/Dockerfile .
+          docker push $IMAGE
+        env:
+            ONBUILD: chessdb/api:onbuild
+            IMAGE: chessdb/api

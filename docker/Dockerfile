@@ -5,11 +5,6 @@ FROM python:slim-buster AS compile-image
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential
 
-## virtualenv
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
 ## add and install requirements
 RUN pip install --upgrade pip
 COPY setup.cfg .

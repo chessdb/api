@@ -13,13 +13,13 @@ services:
     depends_on:
       - chessdb_api_db
     ports:
-      - 9001:8000
+      - 12001:8000
     env_file:
       - .env
     volumes:
       - .:/usr/src/app
     networks:
-      - web
+      - chessdb
       - chessdb_api_internal
   chessdb_api_db:
     image: postgres:12-alpine
@@ -31,9 +31,6 @@ services:
     networks:
       - chessdb_api_internal
 
-
 networks:
   chessdb_api_internal:
-  web:
-    external:
-        name: web
+  chessdb:

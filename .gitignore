@@ -10,3 +10,5 @@ dist/
 build/
 coverage.xml
 pylint.txt
+.venv
+.idea/
