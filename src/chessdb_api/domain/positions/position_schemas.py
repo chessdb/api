@@ -7,6 +7,17 @@ from chessdb_api.domain import base_schemas
 
 class _Base(pydantic.BaseModel):
     fen: pydantic.constr(max_length=90)
+
+
+class Create(_Base):
+    pass
+
+
+class Update(_Base):
+    pass
+
+
+class DB(_Base):
     bitboard_all: int
     bitboard_white: int
     bitboard_black: int
@@ -22,17 +33,6 @@ class _Base(pydantic.BaseModel):
     bitboard_black_queen: int
     bitboard_white_king: int
     bitboard_black_king: int
-
-
-class Create(_Base):
-    pass
-
-
-class Update(_Base):
-    pass
-
-
-class DB(_Base):
 
     class Config:
         orm_mode = True

@@ -49,14 +49,9 @@ def get_positions(client, page: int = 1, page_size: int = 50):
     return client.get(ROUTE, params=dict(page=page, page_size=page_size))
 
 
-def mock_position(street_position: str = None, zip_number: int = None):
-    if street_position is None:
-        street_position = f"{utils.random_string(length=10)} {utils.random_string(length=8)} 101"
-
-    if zip_number is None:
-        zip_number = random.randint(1000, 10000)
-
-    return dict(street_position=street_position, zip_number=zip_number)
+def mock_position(
+        fen="rnbqkbnr/pp1ppppp/2p5/8/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"):
+    return dict(fen=fen)
 
 
 def no_state_change(data: Dict[str, Any],

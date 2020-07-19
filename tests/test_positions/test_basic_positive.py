@@ -21,7 +21,7 @@ def test_validate_status_codes(client):
     position = test_positions.mock_position()
 
     # Get position list should give 200 OK
-    data, status_code = test_positions.get_positiones(client=client)
+    data, status_code = test_positions.get_positions(client=client)
     assert status_code == 200
 
     # For create methods we expect 201 Created
