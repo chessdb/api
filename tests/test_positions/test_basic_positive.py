@@ -28,25 +28,15 @@ def test_validate_status_codes(client):
     data, status_code = test_positions.create_position(client=client,
                                                        position=position)
     assert status_code == 201
-    identifier = data["identifier"]
+    fen = data["fen"]
 
     # Retrieve, we expect 200 OK here.
-    data, status_code = test_positions.get_position(client=client,
-                                                    identifier=identifier)
-    assert status_code == 200
-
-    # We expect 200 OK from updates.
-    update_position = position
-    update_position["street_position"] = "Test Testsen 100"
-    _, status_code = test_positions.update_position(client=client,
-                                                    position=data,
-                                                    identifier=identifier)
+    data, status_code = test_positions.get_position(client=client, fen=fen)
     assert status_code == 200
 
     # Delete, since we are returning the deleted position, a 200 OK is expected
     # instead of 204 No Content.
-    data, status_code = test_positions.delete_position(client=client,
-                                                       identifier=identifier)
+    data, status_code = test_positions.delete_position(client=client, fen=fen)
     assert status_code == 200
 
 
@@ -59,25 +49,16 @@ def test_validate_payload(client):
     # API should save the email as lowercase.
     test_positions.no_state_change(data=data, position=position)
 
-    # Check if the provided identifier (UUID4) is valid
-    identifier = data["identifier"]
-    try:
-        pydantic.UUID4(identifier)
-    except pydantic.ValidationError:
-        pytest.fail("Not a valid UUID4")
+    # Check if the provided fen (UUID4) is valid
+    fen = data["fen"]
+    # Check if valid fen TODO
 
-    # Check if the state is the same.
-    data, _ = test_positions.get_position(client=client, identifier=identifier)
-    test_positions.no_state_change(data=data,
-                                   position=position,
-                                   identifier=identifier)
+    data, _ = test_positions.get_position(client=client, fen=fen)
+    test_positions.no_state_change(data=data, position=position, fen=fen)
 
     # Delete, since we are returning the deleted position, a 200 OK is expected
-    data, status_code = test_positions.delete_position(client=client,
-                                                       identifier=identifier)
-    test_positions.no_state_change(data=data,
-                                   position=position,
-                                   identifier=identifier)
+    data, status_code = test_positions.delete_position(client=client, fen=fen)
+    test_positions.no_state_change(data=data, position=position, fen=fen)
 
 
 def test_validate_headers(client):
@@ -94,11 +75,11 @@ def test_performance_sanity(client):
     position, _ = create(c=client, u=mock_position)
 
     @utils.time_it
-    def get(c, identifier: pydantic.UUID4):
-        return test_positions.get_position(client=c, identifier=identifier)
+    def get(c, fen: pydantic.UUID4):
+        return test_positions.get_position(client=c, fen=fen)
 
-    get(c=client, identifier=position["identifier"])
+    get(c=client, fen=position["fen"])
 
     @utils.time_it
-    def delete(c, identifier: pydantic.UUID4):
-        return test_positions.delete_position(client=c, identifier=identifier)
+    def delete(c, fen: pydantic.UUID4):
+        return test_positions.delete_position(client=c, fen=fen)

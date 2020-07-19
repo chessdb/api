@@ -1,5 +1,3 @@
-import random
-import string
 from typing import Any, Dict, Tuple
 
 import pydantic
@@ -30,18 +28,18 @@ def create_position(client, position: dict):
 
 
 @raise_for_status
-def update_position(client, position: dict, identifier: pydantic.UUID4):
-    return client.put(ROUTE + identifier, json=position)
+def update_position(client, position: dict, fen: str):
+    return client.put(ROUTE + fen, json=position)
 
 
 @raise_for_status
-def delete_position(client, identifier: pydantic.UUID4):
-    return client.delete(ROUTE + identifier)
+def delete_position(client, fen: str):
+    return client.delete(ROUTE + fen)
 
 
 @raise_for_status
-def get_position(client, identifier: pydantic.UUID4):
-    return client.get(ROUTE + identifier)
+def get_position(client, fen: str):
+    return client.get(ROUTE + fen)
 
 
 @raise_for_status
@@ -49,15 +47,11 @@ def get_positions(client, page: int = 1, page_size: int = 50):
     return client.get(ROUTE, params=dict(page=page, page_size=page_size))
 
 
-def mock_position(
-        fen="rnbqkbnr/pp1ppppp/2p5/8/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"):
-    return dict(fen=fen)
+def mock_position():
+    return dict(fen=utils.random_string(length=90))
 
 
 def no_state_change(data: Dict[str, Any],
                     position: Dict[str, Any],
-                    identifier: pydantic.UUID4 = None) -> None:
-    assert position["street_position"] == data["street_position"]
-    assert position["zip_number"] == data["zip_number"]
-    if identifier:
-        assert identifier == data["identifier"]
+                    fen: str = None) -> None:
+    assert position["fen"] == data["fen"]

@@ -15,7 +15,24 @@ class Service:
 
     async def create(self,
                      position: position_schemas.Create) -> position_schemas.DB:
-        new_position = await self._queries.create(position=position)
+        position_with_bitboards = position_schemas.DB(fen=position.fen,
+                                                      bitboard_all=1,
+                                                      bitboard_white=1,
+                                                      bitboard_black=1,
+                                                      bitboard_white_pawn=1,
+                                                      bitboard_black_pawn=1,
+                                                      bitboard_white_rook=1,
+                                                      bitboard_black_rook=1,
+                                                      bitboard_white_knight=1,
+                                                      bitboard_black_knight=1,
+                                                      bitboard_white_bishop=1,
+                                                      bitboard_black_bishop=1,
+                                                      bitboard_white_queen=1,
+                                                      bitboard_black_queen=1,
+                                                      bitboard_white_king=1,
+                                                      bitboard_black_king=1)
+        new_position = await self._queries.create(
+            position=position_with_bitboards)
         return position_schemas.DB.from_orm(new_position)
 
     async def get_by_id(self, fen: pydantic.UUID4) -> position_schemas.DB:
@@ -39,10 +56,11 @@ class Service:
         return position_schemas.Paginated(results=results,
                                           pagination=pagination)
 
-    async def update(
-            self, fen: pydantic.UUID4,
-            new_position: position_schemas.Update) -> position_schemas.DB:
-        old_position = await self._queries.get_by_id(fen=fen)
+        async def update(
+                self, fen: pydantic.UUID4,
+                new_position: position_schemas.Update) -> position_schemas.DB:
+            old_position = await self._queries.get_by_id(fen=fen)
+
         updated_position = await self._queries.update(old_position=old_position,
                                                       new_position=new_position)
         return position_schemas.DB.from_orm(updated_position)

@@ -26,7 +26,7 @@ async def add_position(position: position_schemas.Create,
 
 
 @router.put("/{fen}", response_model=position_schemas.DB)
-async def update_position(fen: pydantic.UUID4,
+async def update_position(fen: str,
                           position: position_schemas.Update,
                           service=fastapi.Depends(
                               service_factory.get_position_services)):
@@ -40,7 +40,7 @@ async def update_position(fen: pydantic.UUID4,
 
 
 @router.get("/{fen}", response_model=position_schemas.DB)
-async def get_position(fen: pydantic.UUID4,
+async def get_position(fen: str,
                        service=fastapi.Depends(
                            service_factory.get_position_services)):
     position = await service.get_by_id(fen=fen)
@@ -53,7 +53,7 @@ async def get_position(fen: pydantic.UUID4,
 
 
 @router.delete("/{fen}", response_model=position_schemas.DB)
-async def delete_position(fen: pydantic.UUID4,
+async def delete_position(fen: str,
                           service=fastapi.Depends(
                               service_factory.get_position_services)):
     return await service.delete(fen=fen)
