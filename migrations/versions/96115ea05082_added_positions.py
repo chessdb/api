@@ -10,7 +10,6 @@ import pathlib
 import sys
 
 from alembic import op
-from migrations import helper
 from sqlalchemy import orm
 
 # Make migrations importable by adding the project root folder to the path.
@@ -20,6 +19,8 @@ from sqlalchemy import orm
 # '.' == parents[2]
 DIR_NAME = str(pathlib.Path(__file__).parents[2])
 sys.path.append(DIR_NAME)
+
+from migrations import helper
 
 # revision identifiers, used by Alembic.
 revision = '96115ea05082'
