@@ -28,6 +28,9 @@ pytest-dotenv = "^0.5.2"
 pytest-cov = "^2.10.0"
 requests = "^2.24.0"
 nitpick = "^0.22.2"
+wemake-python-styleguide = "^0.14.0"
+mypy = "^0.782"
+dlint = "^0.10.3"
 
 [tool.nitpick]
 style = "https://github.com/chessdb/.github/blob/master/styles/python/nitpick-style.toml"
